@@ -1,0 +1,46 @@
+name: Build TIpoint APK
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Web Project
+        run: npm run build
+
+      - name: Capacitor Sync
+        run: |
+          npm install @capacitor/cli @capacitor/android @capacitor/core
+          npx cap add android || true
+          npx cap sync android
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21' # 这里已从 17 改为 21
+
+      - name: Build Android APK
+        run: |
+          cd android
+          gradle wrapper
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TIpoint-Latest-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
