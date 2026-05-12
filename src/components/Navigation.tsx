@@ -15,7 +15,7 @@ export default function Navigation({ activeTab, onTabChange }: NavigationProps) 
   ] as const;
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px] bg-brand-bg/95 backdrop-blur-xl border-t border-brand-outline-variant/30 flex items-center justify-around h-[98px] px-6 z-40 rounded-t-[32px] shadow-[0_-20px_40px_rgba(115,92,0,0.05)]">
+    <nav className="absolute bottom-0 left-0 w-full bg-brand-bg/95 backdrop-blur-xl border-t border-brand-outline-variant/30 flex items-center justify-around h-[98px] px-6 z-40 rounded-t-[32px] shadow-[0_-20px_40px_rgba(115,92,0,0.05)]">
       {tabs.map(({ id, name, icon: Icon }) => (
         <button
           key={id}

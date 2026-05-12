@@ -1,6 +1,11 @@
 export type TimerType = 'countdown' | 'stopwatch';
 export type TimerStatus = 'idle' | 'running' | 'paused' | 'confirming' | 'completed';
 
+export interface Tag {
+  id: string;
+  name: string;
+}
+
 export interface FocusSession {
   id: string;
   type: TimerType;
@@ -8,6 +13,7 @@ export interface FocusSession {
   endTime: number;
   durationMinutes: number;
   status: 'completed' | 'discarded';
+  tagId?: string;
 }
 
 export interface ActiveSession {

@@ -1,8 +1,9 @@
-import { FocusSession, UserConfig } from '../types';
+import { FocusSession, UserConfig, Tag } from '../types';
 
 const STORAGE_KEYS = {
   USER_CONFIG: 'tipoint_user_config',
   FOCUS_SESSIONS: 'tipoint_focus_sessions',
+  TAGS: 'tipoint_tags',
 };
 
 const DEFAULT_CONFIG: UserConfig = {
@@ -59,8 +60,35 @@ export const StorageService = {
     localStorage.setItem(STORAGE_KEYS.FOCUS_SESSIONS, JSON.stringify(sessions));
   },
 
+  deleteFocusSession: (sessionId: string) => {
+    const sessions = StorageService.getFocusSessions();
+    const updated = sessions.filter(s => s.id !== sessionId);
+    localStorage.setItem(STORAGE_KEYS.FOCUS_SESSIONS, JSON.stringify(updated));
+  },
+
+  updateFocusSession: (session: FocusSession) => {
+    const sessions = StorageService.getFocusSessions();
+    const index = sessions.findIndex(s => s.id === session.id);
+    if (index !== -1) {
+      sessions[index] = session;
+      localStorage.setItem(STORAGE_KEYS.FOCUS_SESSIONS, JSON.stringify(sessions));
+    }
+  },
+
+  getTags: (): Tag[] => {
+    const tags = localStorage.getItem(STORAGE_KEYS.TAGS);
+    return tags ? JSON.parse(tags) : [];
+  },
+
+  addTag: (tag: Tag) => {
+    const tags = StorageService.getTags();
+    tags.push(tag);
+    localStorage.setItem(STORAGE_KEYS.TAGS, JSON.stringify(tags));
+  },
+
   clearAll: () => {
     localStorage.removeItem(STORAGE_KEYS.USER_CONFIG);
     localStorage.removeItem(STORAGE_KEYS.FOCUS_SESSIONS);
+    localStorage.removeItem(STORAGE_KEYS.TAGS);
   }
 };

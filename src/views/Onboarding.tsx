@@ -102,7 +102,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                <h1 className="text-2xl font-light text-brand-primary">你想在哪里种下<br/>你的第一棵树？</h1>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mb-8 w-full max-w-md">
+            <div className="grid grid-cols-2 gap-3 mb-8 w-[80%] max-w-[320px]">
               {SCENE_OPTIONS.map((scene) => (
                 <button
                   key={scene.name}
@@ -163,17 +163,15 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               <img src={TREE_BIRTH_IMG} alt="Birth" className="w-64 h-64 object-contain relative" referrerPolicy="no-referrer" />
             </motion.div>
             <h1 className="text-4xl font-sans font-light tracking-widest text-brand-primary mb-4 text-center">树木诞生</h1>
-            <p className="text-brand-outline text-center max-w-xs mb-16 font-light leading-relaxed">
+            <p className="text-brand-outline text-center max-w-xs mb-10 font-light leading-relaxed">
               一颗属于你的专注之种已经萌发
             </p>
-            <div className="absolute bottom-16 left-0 right-0 flex justify-center">
-              <button
-                onClick={nextStep}
-                className="px-16 py-4 w-full max-w-xs bg-brand-primary text-white rounded-full font-bold tracking-[0.2em] text-sm active:scale-95 transition-all shadow-xl"
-              >
-                下一步
-              </button>
-            </div>
+            <button
+              onClick={nextStep}
+              className="px-16 py-4 mt-8 w-full max-w-[240px] bg-brand-primary text-white rounded-full font-bold tracking-[0.2em] text-sm active:scale-95 transition-all shadow-xl"
+            >
+              下一步
+            </button>
           </motion.div>
         )}
 
@@ -185,18 +183,16 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                       <RefreshCw className="text-brand-gold animate-spin-slow" size={32} />
                    </div>
                    <h2 className="text-3xl font-light tracking-[0.1em] mb-4 text-center">专注时刻</h2>
-                   <p className="text-white/60 text-center leading-relaxed font-light mb-12">
+                   <p className="text-white/60 text-center leading-relaxed font-light mb-10">
                      点击开始，让时间为你生长。<br/>开启一段沉浸式的时光。
                    </p>
                 </div>
-                <div className="absolute bottom-16 left-0 right-0 flex justify-center">
-                  <button
-                    onClick={nextStep}
-                    className="px-16 py-4 w-full max-w-xs bg-white text-brand-primary rounded-full font-bold text-sm tracking-[0.2em] active:scale-95 transition-all shadow-2xl"
-                  >
-                    下一步
-                  </button>
-                </div>
+                <button
+                  onClick={nextStep}
+                  className="px-16 py-4 mt-8 w-full max-w-[240px] bg-white text-brand-primary rounded-full font-bold text-sm tracking-[0.2em] active:scale-95 transition-all shadow-2xl"
+                >
+                  下一步
+                </button>
              </div>
           </div>
         )}
@@ -215,18 +211,16 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                      </div>
                    </motion.div>
                    <h2 className="text-5xl font-sans font-light tracking-tighter text-brand-primary mb-6">现在开始了~</h2>
-                   <p className="text-brand-outline font-light max-w-[200px] mx-auto leading-relaxed text-sm">
+                   <p className="text-brand-outline font-light max-w-[200px] mx-auto leading-relaxed text-sm mb-10">
                      你的专注森林<br/>由你亲手点亮
                    </p>
                 </div>
-                <div className="absolute bottom-16 left-0 right-0 flex justify-center">
-                  <button
-                    onClick={handleFinish}
-                    className="px-16 py-4 w-full max-w-xs bg-brand-primary text-white rounded-full font-bold text-sm tracking-[0.2em] active:scale-95 transition-all shadow-xl shadow-brand-primary/20"
-                  >
-                    下一步
-                  </button>
-                </div>
+                <button
+                  onClick={handleFinish}
+                  className="px-16 py-4 mt-8 w-full max-w-[240px] bg-brand-primary text-white rounded-full font-bold text-sm tracking-[0.2em] active:scale-95 transition-all shadow-xl shadow-brand-primary/20"
+                >
+                  下一步
+                </button>
              </div>
           </div>
         )}

@@ -57,12 +57,18 @@ export default function Indoor() {
   };
 
   const startTimer = () => {
+    const now = Date.now();
     if (status === 'paused') {
         setStatus('running');
+        // Restore start time based on elapsed or timeLeft
+        if (type === 'countdown') {
+            startTimeRef.current = now - ((initialCountdown - timeLeft) * 1000);
+        } else {
+            startTimeRef.current = now - (elapsed * 1000);
+        }
         persistActiveSession('running', type, initialCountdown);
         return;
     }
-    const now = Date.now();
     startTimeRef.current = now;
     setStatus('running');
     persistActiveSession('running', type, initialCountdown);
@@ -70,6 +76,16 @@ export default function Indoor() {
 
   const pauseTimer = () => {
     setStatus('paused');
+    // Ensure accurate elapsed/timeLeft is saved
+    if (startTimeRef.current) {
+        const now = Date.now();
+        if (type === 'countdown') {
+            const passed = Math.floor((now - startTimeRef.current) / 1000);
+            setTimeLeft(Math.max(0, initialCountdown - passed));
+        } else {
+            setElapsed(Math.floor((now - startTimeRef.current) / 1000));
+        }
+    }
     persistActiveSession('paused', type, initialCountdown);
     if (timerRef.current) clearInterval(timerRef.current);
   };
@@ -115,22 +131,46 @@ export default function Indoor() {
   useEffect(() => {
     if (status === 'running') {
       timerRef.current = setInterval(() => {
+        const now = Date.now();
         if (type === 'countdown') {
-          setTimeLeft(prev => {
-            if (prev <= 1) {
-              completeSession(type, startTimeRef.current || Date.now() - (initialCountdown * 1000), initialCountdown);
-              return 0;
-            }
-            return prev - 1;
-          });
+          const passed = Math.floor((now - (startTimeRef.current || now)) / 1000);
+          const remaining = initialCountdown - passed;
+          if (remaining <= 0) {
+            completeSession(type, startTimeRef.current || now, initialCountdown);
+            setTimeLeft(0);
+          } else {
+            setTimeLeft(remaining);
+          }
         } else {
-          setElapsed(prev => prev + 1);
+          setElapsed(Math.floor((now - (startTimeRef.current || now)) / 1000));
         }
-      }, 1000);
+      }, 500); // 500ms to be more responsive
     } else {
       if (timerRef.current) clearInterval(timerRef.current);
     }
+    // Handle visibility change to recalculate immediately when returning from background
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && status === 'running') {
+        const now = Date.now();
+        if (type === 'countdown') {
+          const passed = Math.floor((now - (startTimeRef.current || now)) / 1000);
+          const remaining = initialCountdown - passed;
+          if (remaining <= 0) {
+            completeSession(type, startTimeRef.current || now, initialCountdown);
+            setTimeLeft(0);
+          } else {
+            setTimeLeft(remaining);
+          }
+        } else {
+          setElapsed(Math.floor((now - (startTimeRef.current || now)) / 1000));
+        }
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [status, type, initialCountdown]);

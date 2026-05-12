@@ -71,8 +71,8 @@ export default function App() {
   );
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center overflow-auto bg-black/5">
-      <div className="flex flex-col w-[1200px] h-[984px] shrink-0 relative bg-brand-bg shadow-2xl overflow-hidden rounded-[32px]">
+    <div className="w-screen h-screen flex flex-col bg-brand-bg relative overflow-hidden px-[10px]">
+      <div className="flex flex-col w-full h-full relative overflow-hidden">
         {content}
       </div>
     </div>

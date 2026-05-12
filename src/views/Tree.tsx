@@ -34,27 +34,25 @@ export default function Tree({ config, onUpdateConfig }: TreeProps) {
 
       <div className="relative h-full flex flex-col p-8 text-brand-primary pb-[98px]">
         {/* Header */}
-        <header className="flex justify-between items-center mt-6">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full border border-brand-outline-variant bg-brand-surface overflow-hidden shadow-sm">
+        <header className="flex justify-between items-center mt-6 relative w-full h-12">
+          <div className="flex items-center gap-3 absolute left-0">
+            <div className="w-[46px] h-[46px] rounded-full border border-brand-outline-variant bg-brand-surface overflow-hidden shadow-sm shrink-0">
               <img src={config.userAvatarUrl} alt="p" className="w-full h-full p-1" />
             </div>
             <div className="flex flex-col">
               <span className="text-[10px] tracking-widest font-bold uppercase opacity-60 leading-none mb-1">Grower</span>
-              <span className="text-sm font-bold tracking-tight leading-none">{config.userName}</span>
+              <span className="text-sm font-bold tracking-tight leading-none truncate max-w-[80px]">{config.userName}</span>
             </div>
           </div>
-          
-          <h1 className="font-display-lg text-4xl text-brand-primary tracking-[0.15em] font-light hidden xs:block">TIpoint</h1>
 
           <button 
             onClick={handleWater}
-            className="flex flex-col items-center gap-1.5 group"
+            className="flex flex-col items-center gap-1 group absolute right-0"
           >
-            <div className="text-brand-primary group-hover:opacity-70 transition-opacity p-2.5 bg-brand-gold/10 rounded-full">
-              <Droplet size={20} strokeWidth={2} />
+            <div className="text-brand-primary group-hover:opacity-70 transition-opacity p-2 bg-brand-gold/10 rounded-full shrink-0">
+              <Droplet size={21} strokeWidth={2} />
             </div>
-            <span className="text-[10px] font-bold tracking-widest tabular-nums opacity-60">
+            <span className="text-[9px] font-bold tracking-widest tabular-nums opacity-60">
               今日喝水：{config.dailyWaterCount}次
             </span>
           </button>
