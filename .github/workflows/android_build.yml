@@ -26,16 +26,15 @@ jobs:
           npx cap add android || true
           npx cap sync android
 
-      - name: Setup Java 17
+      - name: Setup Java 21
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21' # 这里已从 17 改为 21
 
       - name: Build Android APK
         run: |
           cd android
-          # 强制重新生成 Gradle Wrapper 以修复 Invalid or corrupt jarfile 错误
           gradle wrapper
           chmod +x gradlew
           ./gradlew assembleDebug
