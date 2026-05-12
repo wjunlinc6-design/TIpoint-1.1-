@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&family=Noto+Sans+JP:wght@200;300;500&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* TIpoint Color Palette */
+  --color-brand-primary: #735c00;
+  --color-brand-gold: #d4af37;
+  --color-brand-bg: #fff8f0;
+  --color-brand-surface: #fbf3e5;
+  --color-brand-outline: #7f7663;
+  --color-brand-outline-variant: #d0c5af;
+  --color-brand-forest: #2D4F1E;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-brand-primary antialiased overflow-hidden font-sans;
+    background: linear-gradient(135deg, #e8f5e9 0%, #fff8f0 100%);
+    min-height: 100vh;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Kintsugi-style thin line progress */
+.progress-line {
+  @apply h-[1px] bg-brand-outline-variant relative;
+}
+
+.progress-line-fill {
+  @apply absolute top-0 left-0 h-full bg-brand-gold;
+  box-shadow: 0 0 4px rgba(212, 175, 55, 0.4);
+}

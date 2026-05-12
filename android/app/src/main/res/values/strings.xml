@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TIpoint</string>
+    <string name="title_activity_main">TIpoint</string>
+    <string name="package_name">com.tipoint.app</string>
+    <string name="custom_url_scheme">com.tipoint.app</string>
+</resources>

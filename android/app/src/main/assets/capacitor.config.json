@@ -1,0 +1,6 @@
+{
+	"appId": "com.tipoint.app",
+	"appName": "TIpoint",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
