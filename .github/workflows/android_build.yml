@@ -35,6 +35,8 @@ jobs:
       - name: Build Android APK
         run: |
           cd android
+          # 强制重新生成 Gradle Wrapper 以修复 Invalid or corrupt jarfile 错误
+          gradle wrapper
           chmod +x gradlew
           ./gradlew assembleDebug
 
